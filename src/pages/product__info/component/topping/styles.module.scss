@@ -1,0 +1,32 @@
+.toppings {
+    display: flex;
+
+    .toppings_item {
+        cursor: pointer;
+        padding: 0 5px;
+        font-size: 13px;
+        min-width: 26px;
+        min-height: 26px;
+        text-transform: uppercase;
+        border: #e4e4e4 1px solid;
+        line-height: 26px;
+        text-align: center;
+        margin: 0 10px 10px 0;
+    }
+
+    .toppings_item-active {
+        background: #f94e3f;
+        border-color: #f94e3f;
+        color: #fff;
+    }
+}
+
+.title {
+    line-height: 1.7;
+    font-size: 14px;
+    margin: 1.4px 10px 10px 0;
+}
+
+.wrap {
+    padding: 14px 0;
+}

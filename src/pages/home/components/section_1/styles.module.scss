@@ -1,0 +1,27 @@
+.section__1 {
+    position: relative;
+    margin-top: -176px;
+    margin-bottom: 50px;
+}
+
+.wrap__image {
+    display: flex;
+    overflow: hidden;
+    line-height: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/*mobile*/
+@media (max-width: 46.25em) {
+    .section__1 {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+}
+
+/* mobile and ipad*/
+@media (min-width: 46.25em) and (max-width: 63.938em) {
+    .section__1 {
+        margin-top: -78px;
+    }
+}

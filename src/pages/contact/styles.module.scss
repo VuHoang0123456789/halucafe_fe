@@ -1,0 +1,52 @@
+.breadcrumb {
+    margin-bottom: 20px;
+}
+
+.store__infomation,
+.form__contact {
+    padding: 0 15px;
+}
+
+.wrap__map {
+    padding: 30px 15px;
+
+    iframe {
+        border-radius: 4px;
+        width: 100%;
+        height: 350px;
+    }
+}
+
+.store__infomation {
+    width: 33.3333333%;
+
+    .title {
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .info {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-color);
+
+        a {
+            color: var(--text-color);
+
+            &:hover {
+                color: var(--yellow-color);
+            }
+        }
+    }
+}
+
+.form__contact {
+    width: 66.66666667%;
+}
+
+.contact__page {
+    p {
+        line-height: 1.7;
+    }
+}

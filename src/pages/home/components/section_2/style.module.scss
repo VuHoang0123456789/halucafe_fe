@@ -1,0 +1,112 @@
+.container {
+    padding: 0 15px;
+    max-width: 1170px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+
+        .container__left {
+            width: 58.33333333%;
+        }
+
+        .container__right {
+            width: 41.66666667%;
+        }
+
+        .container__left,
+        .container__right {
+            padding: 0 15px;
+
+            .container__item {
+                margin-bottom: 30px;
+            }
+        }
+
+        .container__item {
+            cursor: pointer;
+            position: relative;
+            line-height: 0;
+            overflow: hidden;
+            background-color: #000;
+
+            &:hover {
+                img {
+                    transform: scale(1.1);
+                }
+            }
+
+            img {
+                width: 100%;
+                opacity: 0.6;
+                transition: all 0.5s ease 0s;
+            }
+
+            .text {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                z-index: 99;
+                padding: 30px;
+                width: 100%;
+
+                h3 {
+                    line-height: 1.4;
+                    font-weight: 700;
+                    font-size: 30px;
+                    margin: 20px 0 16px;
+                    color: var(--white-color);
+                }
+            }
+        }
+    }
+}
+
+/*ipad/*/
+@media (min-width: 46.25em) and (max-width: 63.938em) {
+    .container {
+        max-width: 750px;
+    }
+}
+
+/*ipad*/
+@media (max-width: 46.25em) {
+    .container {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 63.938em) {
+    .container {
+        .row {
+            .container__left,
+            .container__right {
+                .container__item {
+                    margin-bottom: 20px;
+
+                    .text {
+                        padding: 20px;
+
+                        h3 {
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 46.25em) {
+    .container {
+        .row {
+            .container__right,
+            .container__left {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -1,0 +1,159 @@
+.thank_you_page {
+    background: #e6e8ea;
+    height: 100vh;
+    width: 100vw;
+    font-family: Helvetica Neue, sans-serif;
+
+    .wrap__page {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 28px;
+        max-width: 1330px;
+
+        main {
+            padding: 28px 28px 0 28px;
+
+            .btn {
+                border-radius: 5px;
+                line-height: 20px;
+                height: auto;
+                font-size: 18px;
+                padding: 17px 25px;
+                margin-top: 28px;
+                font-weight: 500;
+                background-color: #2f80ed;
+            }
+
+            .box__summary {
+                border-radius: 4px;
+                background-color: var(--white-color);
+
+                h4 {
+                    font-size: 14px;
+                    padding: 7px 15px;
+                    border-bottom: 2px solid var(--border-color);
+                }
+
+                h5 {
+                    font-weight: 500;
+                    flex: 1;
+                }
+
+                h5,
+                p {
+                    padding-top: 10.5px;
+                    font-size: 14px;
+                }
+
+                h6 {
+                    font-size: 14px;
+                    flex: 1;
+                    padding: 0 14px;
+                    font-weight: 500;
+                }
+
+                ul {
+                    max-height: 300px;
+                    overflow: hidden auto;
+                }
+
+                .box__thumbnail {
+                    position: relative;
+
+                    .box__image {
+                        width: 51.6px;
+                        height: 51.6px;
+                        border: 1px solid var(--border-color);
+                        border-radius: 5px;
+                        overflow: hidden;
+                    }
+
+                    .price {
+                        position: absolute;
+                        top: -8px;
+                        right: -8px;
+                        z-index: 99;
+                        width: 20px;
+                        height: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        background-color: #2f80ed;
+                        color: var(--white-color);
+                    }
+                }
+            }
+
+            header {
+                a {
+                    display: block;
+                    width: fit-content;
+                }
+
+                h1 {
+                    font-weight: 500;
+                    font-size: 28px;
+                    color: #2a9dcc;
+                    padding-bottom: 21px;
+                    line-height: 1.1196;
+
+                    &:hover {
+                        color: #2a6395;
+                    }
+                }
+            }
+
+            .content {
+                display: flex;
+                color: var(--text-color);
+            }
+
+            .content__right,
+            .content__left {
+                padding: 0 14px;
+                p {
+                    line-height: 20px;
+                }
+            }
+
+            .content__left {
+                width: 60%;
+            }
+
+            .content__right {
+                width: 40%;
+
+                li {
+                    padding: 14px 15px;
+                    border-bottom: 1px solid var(--border-color);
+                }
+            }
+
+            .box_content {
+                margin: 14px;
+                padding: 14px;
+                border: 1px solid #dadada;
+
+                .item {
+                    padding: 0 14px;
+
+                    h3 {
+                        line-height: 20px;
+                        font-size: 21px;
+                        font-weight: 500;
+                    }
+
+                    p {
+                        font-size: 14px;
+                        margin: 14px 0;
+                    }
+                }
+            }
+
+            .row {
+                margin: 0 -10px;
+            }
+        }
+    }
+}

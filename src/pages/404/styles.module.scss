@@ -1,0 +1,35 @@
+.page_404 {
+    padding: 0 15px;
+
+    h1 {
+        font-weight: 400;
+        padding: 20px 0 10px 0;
+        font-size: 36px;
+    }
+
+    p {
+        font-size: 14px;
+        margin-bottom: 15px;
+        font-weight: 500;
+        line-height: 1.7;
+    }
+
+    .btn_home {
+        background-color: #2a2a2a;
+        width: max-content;
+
+        a {
+            display: block;
+            color: var(--white-color);
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+            width: max-content;
+            font-size: 18px;
+        }
+    }
+}
+
+.breadcrumb {
+    margin-bottom: 30px;
+}

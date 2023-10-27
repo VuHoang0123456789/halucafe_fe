@@ -1,0 +1,65 @@
+.count {
+    .medium {
+        .is-40x40 {
+            width: 40px !important;
+            height: 40px !important;
+        }
+
+        input,
+        button {
+            border: 1px solid #bababa !important;
+            font-size: 16px !important;
+            opacity: 1 !important;
+        }
+
+        input {
+            border-left: none !important;
+            border-right: none !important;
+        }
+    }
+
+    .elipse {
+        .left__radius {
+            border-top-left-radius: 99px;
+            border-bottom-left-radius: 99px;
+        }
+
+        .right__radius {
+            border-top-right-radius: 99px;
+            border-bottom-right-radius: 99px;
+        }
+    }
+
+    .wrap__item {
+        display: flex;
+
+        input,
+        button {
+            min-height: 0;
+            font-size: 14px;
+            border: 1px solid #ebebeb;
+            background-color: var(--white-color);
+        }
+
+        input {
+            height: 25px;
+            width: 30px;
+            text-align: center;
+            outline: #ebebeb;
+            border-right: none;
+            border-left: none;
+        }
+
+        button {
+            cursor: pointer;
+            height: 25px;
+            width: 25px;
+            padding: 1px 6px;
+            font-weight: 500;
+
+            &:hover {
+                color: var(--yellow-color);
+            }
+        }
+    }
+}

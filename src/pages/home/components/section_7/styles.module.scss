@@ -1,0 +1,78 @@
+.wrap {
+    padding: 50px 0;
+}
+
+.section_7 {
+    background-image: url('../../../../../public//images//pages/home/section_7/bg-section-danhgia.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.content {
+    .carousel {
+        position: relative;
+        overflow: hidden;
+
+        .card {
+            width: 1140px;
+            text-align: center;
+
+            p {
+                font-weight: 500;
+                line-height: 1.7;
+                letter-spacing: 0.25px;
+                font-size: 14px;
+                color: #fff;
+                max-width: 480px;
+                margin: 0 auto;
+            }
+
+            h3 {
+                font-weight: 400;
+                line-height: 1.4;
+                margin: 20px 0 10px;
+                color: var(--yellow-color);
+                font-size: 24px;
+                text-transform: capitalize;
+            }
+
+            .avatar {
+                width: 95px;
+                height: 95px;
+                margin: 0 auto;
+                overflow: hidden;
+                border-radius: 50%;
+                border: 2px solid var(--yellow-color);
+            }
+        }
+
+        .section7_dot {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}
+
+/*ipad/*/
+@media (min-width: 46.25em) and (max-width: 63.938em) {
+    .content {
+        .carousel {
+            .card {
+                width: 720px;
+            }
+        }
+    }
+}
+
+/*mobile*/
+@media (max-width: 46.25em) {
+    .content {
+        .carousel {
+            .card {
+                width: calc(100vw - 30px);
+            }
+        }
+    }
+}

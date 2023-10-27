@@ -1,0 +1,169 @@
+.site-bar {
+    padding: 15px;
+    border-radius: 5px;
+    height: fit-content;
+    margin: 0 0 30px 15px;
+    width: calc(25% - 20px);
+    background: var(--sitebar-color);
+
+    .aside__item {
+        .lv2 {
+            padding-left: 15px;
+            max-height: 0;
+            overflow: hidden auto;
+            transition: max-height 0.3s ease;
+
+            a {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        .lv3 {
+            padding-left: 20px;
+        }
+
+        .title {
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--yellow-color);
+
+            h3 {
+                font-size: 17px;
+            }
+        }
+
+        .categories-box {
+            padding: 10px 0;
+            margin-bottom: 30px;
+
+            .old__price {
+                margin-left: 10px;
+                color: var(--text-color) !important;
+                text-decoration: line-through;
+            }
+
+            .nav__item {
+                cursor: pointer;
+                font-weight: 500;
+
+                a {
+                    flex: 1;
+                    line-height: 18px;
+                    font-size: 14px;
+                    color: var(--text-color);
+                    padding: 10px 20px 10px 0;
+                    border-bottom: 1px dashed var(--border-color-2);
+
+                    &:hover {
+                        color: var(--yellow-color);
+                    }
+                }
+
+                .nav__item-icon {
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 20px;
+                    font-size: 12px;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+
+            .products__item {
+                position: relative;
+                display: flex;
+                margin-bottom: 15px;
+
+                .product__text {
+                    flex: 1;
+                    margin-left: 8px;
+                }
+
+                .products__price,
+                .product__name {
+                    font-weight: 700;
+                }
+
+                .product__name {
+                    font-size: 14px;
+                    text-transform: uppercase;
+
+                    a {
+                        transition: all 0.3s;
+                        line-height: 18px;
+                        color: var(--text-color);
+
+                        &:hover {
+                            color: var(--yellow-color);
+                        }
+                    }
+                }
+
+                .products__price {
+                    color: var(--yellow-color);
+                    font-size: 12px;
+                    line-height: 1.7;
+                }
+
+                .thumbnail {
+                    line-height: 0;
+                    width: 80px;
+                }
+
+                .box__sale {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 31px;
+                    height: 20px;
+                    font-size: 10px;
+                    color: var(--white-color);
+                    line-height: 20px;
+                    text-align: center;
+                    background-color: var(--yellow-color);
+                }
+            }
+        }
+    }
+
+    .banner__thumbnail {
+        &:last-child {
+            margin-bottom: 25px;
+        }
+    }
+
+    .check-box {
+        transition: all 0.3s ease;
+
+        &:hover {
+            color: var(--yellow-color);
+        }
+
+        svg {
+            font-size: 16px;
+        }
+    }
+    .fillter__selection {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            cursor: pointer;
+            color: var(--yellow-color);
+        }
+    }
+    .fillter__wrap {
+        padding-right: 8px;
+        line-height: 35px;
+    }
+
+    .active {
+        color: var(--yellow-color) !important;
+    }
+}

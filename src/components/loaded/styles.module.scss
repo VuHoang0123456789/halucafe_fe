@@ -1,0 +1,18 @@
+.loaded_comp {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background: #564733;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loaded_backgroud {
+    width: 200px;
+    height: 150px;
+    background: url(../../../public//images/loaded/loading_page.gif) top center / cover no-repeat;
+}

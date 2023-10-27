@@ -1,0 +1,43 @@
+.posts__info-page {
+    input {
+        min-height: 40px;
+    }
+
+    input,
+    textarea {
+        margin-bottom: 8px;
+        resize: none;
+    }
+
+    h1,
+    h2,
+    h3 {
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+    a {
+        width: fit-content;
+        color: var(--text-color);
+    }
+
+    .title {
+        h1 {
+            font-size: 20px;
+            width: fit-content;
+            margin-bottom: -1px;
+            border-bottom: 3px solid #2e3553;
+        }
+
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    aside {
+        margin-bottom: 8px;
+    }
+
+    .wrap_comments {
+        margin-top: 35px;
+    }
+}

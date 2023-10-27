@@ -1,0 +1,198 @@
+.wrap {
+    padding: 0 15px;
+    display: flex;
+
+    .left {
+        width: 30%;
+        padding: 20px;
+        text-align: center;
+        color: var(--white-color);
+        background: url('https://bizweb.dktcdn.net/100/351/580/themes/714586/assets/open-hour-bg.png?1628672798901')
+            no-repeat scroll 0px 0px;
+        background-size: auto 100%;
+
+        .box__left {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--white-color);
+            padding: 15px;
+
+            .phone {
+                transition: all 0.3s ease;
+                color: var(--white-color);
+                width: fit-content;
+
+                &:hover {
+                    color: var(--yellow-color);
+                }
+            }
+
+            .box__left-top {
+                border-bottom: 1px dashed var(--white-color);
+            }
+
+            p,
+            h2 {
+                font-size: 14px;
+            }
+
+            h2 {
+                padding: 5px 0 6px 0;
+            }
+
+            p {
+                padding: 8px 0;
+            }
+
+            &::after {
+                content: '';
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                position: absolute;
+                top: -5px;
+                left: -5px;
+                background-color: var(--white-color);
+            }
+        }
+    }
+
+    .right {
+        color: var(--white-color);
+        width: 70%;
+        padding: 30px;
+        background: url('https://bizweb.dktcdn.net/100/351/580/themes/714586/assets/bg-datban.jpg?1628672798901')
+            no-repeat scroll center;
+        background-size: cover;
+
+        .btn {
+            padding: 0 40px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .notify_item_wrap {
+            padding: 15px !important;
+            border-radius: 4px;
+            margin: 0 8px 20px 8px;
+            background: rgba(255, 255, 255, 0.05);
+
+            .notify_item {
+                background-color: transparent !important;
+            }
+
+            .notify_sucess {
+                color: var(--success-color) !important;
+            }
+
+            .notify_error {
+                color: var(--cancel-color) !important;
+            }
+
+            .icon {
+                cursor: pointer;
+                position: absolute !important;
+                left: calc(100% - 50px) !important;
+                top: 50% !important;
+                transform: translateY(-50%);
+                border: none !important;
+            }
+        }
+
+        .box__right-item,
+        .notify_item_wrap {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 50%;
+            padding: 0px 8px 8px 8px;
+
+            .date-picker {
+                width: 100%;
+            }
+
+            .icon {
+                position: absolute;
+                top: 8px;
+                left: 8px;
+                text-align: center;
+                line-height: 26px;
+                color: #c1c1c1;
+                opacity: 0.8;
+                width: 36px;
+                height: 26px;
+                border-right: 1px solid #514e4e;
+            }
+
+            input,
+            textarea,
+            select,
+            .notify_item {
+                width: 100%;
+                min-height: 40px;
+                background: rgba(255, 255, 255, 0.05);
+                border-color: transparent;
+                color: #c1c1c1;
+                font-size: 14px;
+                font-family: 'Quicksand', sans-serif;
+
+                &::placeholder {
+                    font-size: 14px;
+                    font-weight: 300;
+                    color: var(--white-color);
+                }
+            }
+
+            .notify_item {
+                min-height: 0;
+                line-height: 1.7;
+            }
+
+            textarea {
+                line-height: 1.5;
+                margin-bottom: 5px;
+                width: 722px;
+                padding: 3.75px 7.5px 3.75px 10px;
+            }
+
+            select {
+                appearance: none;
+                cursor: pointer;
+                outline: none;
+
+                &::-webkit-scrollbar {
+                    width: 8px;
+                    border-radius: none;
+                    background-color: #dedede;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: var(--border-color);
+                    z-index: 100;
+                    border-radius: 5px;
+                }
+
+                option {
+                    background: rgba(255, 255, 255, 0.05);
+                    padding-left: 10px;
+                    color: var(--text-color);
+                }
+            }
+
+            input,
+            select {
+                margin-bottom: 5px;
+                padding: 3.75px 7.5px 3.75px 43px;
+            }
+        }
+    }
+}
+
+.breadcrumb {
+    margin-bottom: 30px;
+}
+
+ion-datetime {
+    color: var(--white-color);
+}
