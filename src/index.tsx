@@ -7,6 +7,7 @@ import GlobalStyles from './components/globalStyles';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Provider } from 'react-redux';
 import { store } from './reduce/store';
+import './i18n/i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

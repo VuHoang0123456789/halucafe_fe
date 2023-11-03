@@ -153,6 +153,7 @@ function App() {
                             />
                         );
                     })}
+                    <Route path="/" element={<Navigate to="/trang-chu" replace />} />
                     <Route path="*" element={<Navigate to="/404" replace />} />
                 </Routes>
             </div>

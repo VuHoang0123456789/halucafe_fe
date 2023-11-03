@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import { Autocomplete, FormControlLabel, Radio, RadioGroup, TextField, Typography } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
-import { faMoneyBill1 } from '@fortawesome/free-regular-svg-icons';
 import {
     CallApi,
     ChangeDistricts,
@@ -26,6 +25,7 @@ const cx = classNames.bind(styles);
 type PayType = {
     pay_type_id: number;
     pay_type_name: string;
+    icon: string;
 };
 
 interface CartType extends ProductType {
@@ -110,9 +110,31 @@ function CheckOutPage() {
     ] as ProvinceType);
     const [wradsCode, setWradsCode] = useState(-1);
 
-    const delivery__costs = 40000;
+    const [delivery_cost, setDelivery_cost] = useState(0);
 
     const [order, setOrder] = useState<OrderType>({} as OrderType);
+
+    useEffect(() => {
+        const listDelivery_cost = [
+            { provinces_name: 'Hải Phòng', costs: 15000 },
+            { provinces_name: 'Hà Nội', costs: 30000 },
+            { provinces_name: 'Hồ Chí Minh', costs: 50000 },
+            { provinces_name: 'Yên Bái', costs: 30000 },
+            { provinces_name: 'Đà Nẵng', costs: 40000 },
+            { provinces_name: 'Lạng Sơn', costs: 25000 },
+        ];
+
+        const cost = listDelivery_cost.find((item) =>
+            provinces[provincesCode]?.name.includes(item.provinces_name),
+        )?.costs;
+
+        if (!cost) {
+            setDelivery_cost(0);
+            return;
+        }
+
+        setDelivery_cost(cost);
+    }, [provincesCode]);
 
     useEffect(() => {
         document.title = 'halucafe - Thanh toán đơn hàng';
@@ -125,7 +147,7 @@ function CheckOutPage() {
     useEffect(() => {
         const ob = {
             customerId: user.customer_id,
-            deliveryCost: delivery__costs,
+            deliveryCost: delivery_cost,
             payTypeId: payTypes[payTypesIndex]?.pay_type_id,
             email: user.email,
             slug: GetCookie('_order_slug') || createRandomStr(30),
@@ -162,17 +184,16 @@ function CheckOutPage() {
     );
     // Tính số tiền thật phải trả
     const TotalPay = useMemo(
-        () =>
-            Total + delivery__costs - voucher.voucher_value > 0 ? Total + delivery__costs - voucher.voucher_value : 0,
-        [Total, delivery__costs, voucher],
+        () => (Total + delivery_cost - voucher.voucher_value > 0 ? Total + delivery_cost - voucher.voucher_value : 0),
+        [Total, delivery_cost, voucher],
     );
 
     useEffect(() => {
-        if (provincesCode !== -1) ChangeDistrictClick(provinces[provincesCode].code);
+        if (provincesCode !== -1) ChangeDistrictClick(provinces[provincesCode]?.code);
     }, [provincesCode, provinces]);
 
     useEffect(() => {
-        if (districtsCode !== -1) ChangeWardsClick(districts[districtsCode].code);
+        if (districtsCode !== -1) ChangeWardsClick(districts[districtsCode]?.code);
     }, [districtsCode, districts]);
 
     useEffect(() => {
@@ -428,6 +449,7 @@ function CheckOutPage() {
                                                 district_code: 0,
                                             },
                                         ]);
+                                        setProvincesCode(-1);
                                     } else {
                                         const code = provinces.findIndex((item) => item.name === options);
                                         setProvincesCode(code);
@@ -483,6 +505,7 @@ function CheckOutPage() {
                                                 district_code: 0,
                                             },
                                         ]);
+                                        setDistrictsCode(-1);
                                     } else {
                                         const index = districts.findIndex((item) => item.name === options);
                                         setDistrictsCode(index);
@@ -580,7 +603,7 @@ function CheckOutPage() {
                                         label={
                                             <div className={cx('wrap__payment-methods')}>
                                                 <span>Giao hàng tận nơi</span>
-                                                <p style={{ padding: '0 9px' }}>{FormatPrice(40000)}₫</p>
+                                                <p style={{ padding: '0 9px' }}>{FormatPrice(delivery_cost)}₫</p>
                                             </div>
                                         }
                                     />
@@ -596,7 +619,7 @@ function CheckOutPage() {
                                     {payTypes.map((item, index) => (
                                         <FormControlLabel
                                             key={index}
-                                            value="Thanh toán khi giao hàng (COD)"
+                                            value={item.pay_type_name}
                                             control={<Radio />}
                                             onClick={() => setPayTypesIndex(index)}
                                             style={{
@@ -613,7 +636,11 @@ function CheckOutPage() {
                                             label={
                                                 <div className={cx('wrap__payment-methods')}>
                                                     <span>{item.pay_type_name}</span>
-                                                    <FontAwesomeIcon icon={faMoneyBill1} className={cx('icon')} />
+                                                    <img
+                                                        className={cx('icon')}
+                                                        src={`${process.env.REACT_APP_DOMAIN__URL_FE}${item.icon}`}
+                                                        alt={item.pay_type_name}
+                                                    />
                                                 </div>
                                             }
                                         />
@@ -688,7 +715,7 @@ function CheckOutPage() {
                             </div>
                             <div className={cx('flex', 'field')}>
                                 <span>Phí vận chuyển</span>
-                                <p>{FormatPrice(delivery__costs)}₫</p>
+                                <p>{FormatPrice(delivery_cost)}₫</p>
                             </div>
                             <hr />
                             <div className={cx('flex', 'field')}>
