@@ -4,8 +4,9 @@ const doumain_url = process.env.REACT_APP_DOMAIN_URL_BE;
 
 function LogOut() {
     if (GetCookie('_typeLogin')) {
-        deleteCookie('__typeLogin', '/');
+        deleteCookie('_typeLogin', '/account');
         deleteCookie('_user', '/');
+        deleteCookie('_token', '/');
     } else {
         deleteCookie('_user', '/');
         deleteCookie('_token', '/');
@@ -49,12 +50,19 @@ async function GetPassWord(email: string) {
             body: JSON.stringify({ email: email }),
         });
 
-        if (res.status === 200) alert((await res.json()).msg);
-
         if (res.status === 400 || res.status === 500) {
             const data = await res.json();
-            alert(data.msg);
+
+            return {
+                type: 'cancel',
+                content: data.msg,
+            };
         }
+
+        return {
+            type: 'success',
+            content: (await res.json()).msg,
+        };
     } catch (error) {
         console.log(`Error in authmethod/GetPassWord: ${error}`);
     }

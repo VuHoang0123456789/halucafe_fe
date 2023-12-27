@@ -28,7 +28,7 @@ function Pages404() {
 
     useEffect(() => {
         i18n.changeLanguage(language);
-    }, [language]);
+    }, [language, i18n]);
 
     return (
         <div className="container" style={{ marginBottom: '0' }}>

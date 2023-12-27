@@ -4,6 +4,13 @@
         padding: 0 10px;
         border: 1px solid var(--border-color-1);
         margin-bottom: 40px !important;
+        flex: 1;
+        margin-left: 15px;
+    }
+
+    .wrap_image {
+        width: 40px;
+        height: 40px;
     }
 
     .wrap_item-top {
@@ -36,7 +43,7 @@
     }
 
     .wrap_form-comment {
-        margin: -10px 0 20px 0;
+        margin: -10px 0 20px 55px;
     }
 
     .item_bottom {

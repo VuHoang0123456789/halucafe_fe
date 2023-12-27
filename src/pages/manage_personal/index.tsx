@@ -6,6 +6,7 @@ import { createContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/reduce/store';
 import LoadedComp from '@/components/loaded';
+import { useLocation } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -28,6 +29,7 @@ function ManagerPersonal() {
     const Value = { index, setIndex };
     const user = useSelector((state: RootState) => state.user);
     const [isLoaded, setIsLoaded] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         if (user.customer_id !== -1) setIsLoaded(true);
@@ -38,13 +40,11 @@ function ManagerPersonal() {
     }, [index]);
 
     useEffect(() => {
-        const href = window.location.href;
-
-        if (href.includes('/account/orders')) setIndex({ sitebar_idex: 1, order_index: -1 });
-        else if (href.includes('/account/change-password')) setIndex({ sitebar_idex: 2, order_index: -1 });
-        else if (href.includes('/account/address')) setIndex({ sitebar_idex: 3, order_index: -1 });
+        if (location.pathname.includes('/account/orders')) setIndex({ sitebar_idex: 1, order_index: -1 });
+        else if (location.pathname.includes('/account/change-password')) setIndex({ sitebar_idex: 2, order_index: -1 });
+        else if (location.pathname.includes('/account/address')) setIndex({ sitebar_idex: 3, order_index: -1 });
         else setIndex({ sitebar_idex: 0, order_index: -1 });
-    }, []);
+    }, [location]);
 
     return (
         <ConTextIndex.Provider value={Value}>

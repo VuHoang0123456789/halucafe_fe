@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './style.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faXmark, faTriangleExclamation, faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
@@ -17,36 +17,40 @@ interface props {
 }
 
 function MessageComp({ message }: props) {
-    const [messages, setMessages] = useState<messages[]>([] as messages[]);
+    const [messages, setMessages] = useState<messages[] | []>([]);
     const colors = [
         {
             type: 'success',
             color: '--success-color',
+            icon: faCheckCircle,
         },
         {
             type: 'cancel',
             color: '--cancel-color',
+            icon: faTriangleExclamation,
         },
         {
             type: 'info',
             color: ' --info-color',
+            icon: faExclamation,
         },
     ];
 
     useEffect(() => {
-        let arr = [...messages] as messages[];
-        const newMessage = { ...message, id: arr.length };
-        arr.push(newMessage);
-        setMessages(arr);
+        setMessages((prev) => {
+            let arr = [...prev] as messages[];
+            const newMessage = { ...message, id: arr.length };
+            arr.push(newMessage);
 
-        setTimeout(() => {
-            const removeIndex = arr.findIndex((item) => item.id === newMessage.id);
+            setTimeout(() => {
+                const removeIndex = arr.findIndex((item) => item.id === newMessage.id);
 
-            arr.splice(removeIndex, 1);
+                arr.splice(0, removeIndex + 1);
+                setMessages(arr);
+            }, 4200);
 
-            console.log(arr);
-            setMessages(arr);
-        }, 4200);
+            return arr;
+        });
     }, [message]);
 
     function Color(typeColor: string) {
@@ -76,7 +80,7 @@ function MessageComp({ message }: props) {
                     style={{ borderLeft: `4px solid var(${Color(item.type)?.color})` }}
                 >
                     <div className={cx('icon')} style={{ color: `var(${Color(item.type)?.color})` }}>
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={Color(item.type).icon} />
                     </div>
                     <p className={cx('content')}>{item.content}</p>
                     <div className={cx('icon', 'icon_close')} onClick={() => CloseItem(index)}>

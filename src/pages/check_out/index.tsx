@@ -134,7 +134,7 @@ function CheckOutPage() {
         }
 
         setDelivery_cost(cost);
-    }, [provincesCode]);
+    }, [provincesCode, provinces]);
 
     useEffect(() => {
         document.title = 'halucafe - Thanh toán đơn hàng';
@@ -156,7 +156,7 @@ function CheckOutPage() {
         };
 
         setOrder(ob);
-    }, [user, payTypes, payTypesIndex, cartItems]);
+    }, [user, payTypes, payTypesIndex, cartItems, delivery_cost]);
 
     useEffect(() => {
         const method = 'get';

@@ -1,0 +1,46 @@
+.test_call-video {
+    display: flex;
+    padding: 50px 0 0 0;
+
+    .wrap_video {
+        position: relative;
+        width: 400px;
+        height: 500px;
+
+        .video_small {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 100px;
+            height: 150px;
+            object-fit: fill;
+            z-index: 10;
+            border: 1px solid black;
+            border-radius: 4px;
+        }
+
+        video {
+            object-fit: fill;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+    }
+
+    button {
+        cursor: pointer;
+        height: fit-content;
+        padding: 5px 10px;
+        width: 32%;
+    }
+}

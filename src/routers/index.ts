@@ -15,11 +15,11 @@ import BookPages from '@/pages/book';
 import PostInfo from '@/pages/post__info';
 import ResultSearch from '@/pages/result_search';
 import Pages404 from '@/pages/404';
+import CallVideoApp from '@/pages/test_call_video';
 
 const publicRouters = [
     { path: '/trang-chu', element: HomePage, layout: DefaultLayout },
     { path: '/gioi-thieu', element: IntroducePage, layout: DefaultLayout },
-
     { path: '/collections/:slug/', element: AllProduct, layout: DefaultLayout },
     { path: '/tin-tuc', element: NewsPage, layout: DefaultLayout },
     { path: '/lien-he', element: ContactPages, layout: DefaultLayout },
@@ -27,6 +27,7 @@ const publicRouters = [
     { path: '/dat-ban', element: BookPages, layout: DefaultLayout },
     { path: '/tin-tuc/:slug', element: PostInfo, layout: DefaultLayout },
     { path: '/search/', element: ResultSearch, layout: DefaultLayout },
+    { path: '/call-video', element: CallVideoApp, layout: DefaultLayout },
     { path: '/404', element: Pages404, layout: DefaultLayout },
 ];
 const privateRouters = [

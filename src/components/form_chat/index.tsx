@@ -31,6 +31,7 @@ function FormChat() {
     const [isShowEmojiPicker, setIsShowEmojiPicker] = useState(false);
     const formHeightRef = useRef<HTMLDivElement>(null);
     const [isShowForm, setIsShowFrom] = useState(false);
+    const [limit, setLimit] = useState(3);
 
     useEffect(() => {
         socketRef.current = io(host, {
@@ -74,7 +75,7 @@ function FormChat() {
             receiver: 'hallu-coffee',
         };
 
-        CallApi(`${process.env.REACT_APP_DOMAIN_URL_BE}/chat/get-all-message`, 'post', header, body)
+        CallApi(`${process.env.REACT_APP_DOMAIN_URL_BE}/chat/get-all-message?limit=${limit}`, 'post', header, body)
             .then((res: any) => {
                 if (res) {
                     const arr = [] as messageType[];
@@ -83,13 +84,13 @@ function FormChat() {
                         arr.push({ to: res[i].receiver, msg: res[i].msg, sender: res[i].sender === user.email });
                     }
 
-                    setMessages((prev) => [...prev, ...arr]);
+                    setMessages(arr);
                 }
 
                 setIsShowFrom(true);
             })
             .catch((error: Error) => console.log(error));
-    }, [user, isMiniForm]);
+    }, [user, isMiniForm, limit]);
 
     function KeyEnter(e: React.KeyboardEvent<HTMLTextAreaElement>) {
         if (e.key === 'Enter') {
@@ -107,7 +108,7 @@ function FormChat() {
             if (message_value.replace(/\s+/g, '').trim().length > 0) {
                 const msg = {
                     msg: message_value,
-                    to: 'halu-coffe',
+                    to: 'halu-coffee',
                 };
 
                 socketRef.current.emit('send-data-client', msg);
@@ -170,6 +171,14 @@ function FormChat() {
         wrapFormChat.style.borderRadius = '10px';
     }
 
+    function CheckScroll(e: React.MouseEvent<HTMLElement>) {
+        const element = e.target as HTMLElement;
+
+        if (element.scrollTop !== 0) return;
+
+        setLimit((prev) => (prev += 3));
+    }
+
     return isShowForm ? (
         <div className={cx('wrap_form-chat')} ref={wrapFormChatRef}>
             {isMiniForm ? (
@@ -194,7 +203,7 @@ function FormChat() {
                     </header>
 
                     <div className={cx('wrap_content_footer')}>
-                        <main className={cx('form_chat-content')}>
+                        <main className={cx('form_chat-content')} onScroll={CheckScroll}>
                             <div style={{ height: '16px', width: '100%' }}></div>
                             <div className={cx('content_item-wrap')} ref={scrollbar} style={{ margin: 0 }}>
                                 <div className={cx('content_item')}>

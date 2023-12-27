@@ -2,8 +2,9 @@ import Breadcrumb from '@/components/breadcrumb';
 import styles from './styles.module.scss';
 import classNames from 'classnames/bind';
 import WrapShareFacebookAnfGoogle from '../components/share_facebook_google';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RegisterFunc } from '@/method/auth';
+import { validateEmail } from '@/method/until';
 
 const cx = classNames.bind(styles);
 
@@ -12,6 +13,7 @@ function Register() {
     const [lastName, setLastName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassWord] = useState<string>('');
+    const [disabledBTn, setDisabled] = useState<boolean>(true);
 
     const breadcrumb = {
         title: 'Đăng ký tài khoản',
@@ -25,9 +27,25 @@ function Register() {
         document.title = 'Đăng ký tài khoản halucafe';
     }, []);
 
-    function KeyDown() {
-        if (email.length <= 0 || firstName.length <= 0 || lastName.length <= 0 || password.length < 8) return;
-        RegisterFunc(email, password, firstName, lastName);
+    useEffect(() => {
+        if (
+            validateEmail(email) &&
+            firstName.replace(/\s/g, '').length > 0 &&
+            lastName.replace(/\s/g, '').length > 0 &&
+            password.length >= 8
+        )
+            setDisabled(false);
+        else setDisabled(true);
+    }, [firstName, lastName, email, password]);
+
+    function KeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+        if (disabledBTn) return;
+
+        if (e.key === 'Enter') RegisterFunc(email, password, firstName, lastName);
+    }
+
+    function KeyDownPass(e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.key === ' ') e.preventDefault();
     }
 
     return (
@@ -49,6 +67,7 @@ function Register() {
                                     <div className={cx('wrap__input')}>
                                         <h2 className={cx('wrap__inpu-title')}>Họ: </h2>
                                         <input
+                                            name=""
                                             required
                                             placeholder=""
                                             className="min__height"
@@ -85,19 +104,17 @@ function Register() {
                                             placeholder=""
                                             type="password"
                                             onChange={(e) => setPassWord(e.target.value)}
-                                            onKeyDown={KeyDown}
+                                            onKeyDown={(e) => {
+                                                KeyDownPass(e);
+                                                KeyDown(e);
+                                            }}
                                         />
                                     </div>
                                 </div>
                                 <button
                                     className={cx('btn', 'default')}
                                     onClick={() => RegisterFunc(email, password, firstName, lastName)}
-                                    disabled={
-                                        email.length <= 0 ||
-                                        firstName.length <= 0 ||
-                                        lastName.length <= 0 ||
-                                        password.length < 8
-                                    }
+                                    disabled={disabledBTn}
                                 >
                                     Đăng ký
                                 </button>

@@ -21,7 +21,7 @@ function FormComment({ SendComment, comment_of_feedback, SendFeeback }: props) {
         if (user.customer_id === -1) return;
 
         setComment((prev: commenType) => {
-            return { ...prev, author_id: user.customer_id, author_name: user.show_name };
+            return { ...prev, author_id: user.customer_id, author_name: user.show_name, avatar: user.avatar };
         });
     }, [user]);
 
@@ -58,6 +58,7 @@ function FormComment({ SendComment, comment_of_feedback, SendFeeback }: props) {
                 author_name: user.show_name,
                 dislike_count: 0,
                 like_count: 0,
+                avatar: user.avatar,
                 comment_id: comment_of_feedback.comment_id,
                 receiver_id: comment_of_feedback.author_id,
                 receiver_name: comment_of_feedback.author_name,

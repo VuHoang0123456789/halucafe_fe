@@ -43,6 +43,10 @@
         height: 460px;
         padding: 5px;
         border: 1px solid var(--border-color);
+
+        img {
+            max-width: unset;
+        }
     }
 }
 

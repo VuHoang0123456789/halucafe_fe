@@ -5,13 +5,21 @@ import { Link } from 'react-router-dom';
 import WrapShareFacebookAnfGoogle from '../components/share_facebook_google';
 import React, { useEffect, useState } from 'react';
 import { GetPassWord, Login } from '@/method/auth';
+import MessageComp from '@/components/message';
 
 const cx = classNames.bind(styles);
+
+interface messages {
+    id?: number;
+    content: string;
+    type: string;
+}
 
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [email_forgot, setEmailForgot] = useState('');
     const [passWord, setPassWord] = useState('');
+    const [message, setMessage] = useState<messages>({} as messages);
 
     const breadcrumb = {
         title: 'Đăng nhập tài khoản',
@@ -30,13 +38,21 @@ function LoginPage() {
         if (e.key === 'Enter') Login(email, passWord);
     }
 
-    function GetPassKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    async function GetPassKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
         if (email_forgot.length < 8) return;
-        if (e.key === 'Enter') GetPassWord(email_forgot);
+
+        if (e.key === 'Enter') ShowMessage();
+    }
+
+    async function ShowMessage() {
+        const data = await GetPassWord(email_forgot);
+
+        if (data) setMessage(data);
     }
 
     return (
         <div className={cx('login__page')}>
+            {message.type ? <MessageComp message={message} /> : <></>}
             <div className="container">
                 <section className={cx('breadcrumb')}>
                     <Breadcrumb breadcrumb={breadcrumb} />
@@ -129,9 +145,7 @@ function LoginPage() {
                                     </div>
                                     <button
                                         className={cx('btn', 'default')}
-                                        onClick={() => {
-                                            GetPassWord(email_forgot);
-                                        }}
+                                        onClick={ShowMessage}
                                         disabled={email_forgot.length < 8}
                                     >
                                         Lấy lại mật khẩu

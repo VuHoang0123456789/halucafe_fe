@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import LoadedComp from '@/components/loaded';
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import MessageComp from '@/components/message';
+import { validateEmail } from '@/method/until';
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,7 @@ function ContactPages() {
     const [data_body, setDataBody] = useState<dataType>({ full_name: '', email: '', phone: '', content: '' });
     const [message, setMessage] = useState<messages>({} as messages);
     const [isDisabledButton, setIsDisabledButton] = useState(true);
+    const [isAddNewMessage, setIsAddNewMessage] = useState(false);
 
     useEffect(() => {
         document.title = 'Liên hệ halucafe';
@@ -53,12 +55,6 @@ function ContactPages() {
         else setIsDisabledButton(true);
     }, [data_body]);
 
-    function SendContact() {
-        if (isDisabledButton) return;
-
-        setMessage({ content: 'Đã gửi thư thành công cho cửa hàng', type: 'success' });
-    }
-
     function KeyPressEnter(e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const element = e.target as HTMLElement;
 
@@ -75,17 +71,17 @@ function ContactPages() {
         if (isNaN(parseInt(e.key)) && e.key !== 'Backspace' && e.key !== 'Tab' && e.key !== 'Enter') e.preventDefault();
     }
 
-    function validateEmail(email: string) {
-        const regexp =
-            /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-
-        return regexp.test(email);
-    }
-
     function ChangeValue(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const inputElement = e.target;
 
         setDataBody({ ...data_body, [inputElement.name]: inputElement.value });
+    }
+
+    function SendContact() {
+        if (isDisabledButton) return;
+
+        setIsAddNewMessage(!isAddNewMessage);
+        setMessage({ content: 'Đã gửi thư thành công cho cửa hàng', type: 'success' });
     }
 
     return (

@@ -6,7 +6,6 @@ import LikeComp from '../dislike_and_like_button/like_comp';
 import DisLikeComp from '../dislike_and_like_button/dislike_comp';
 import { useEffect, useState } from 'react';
 import { commenType, feedbackType } from '@/type';
-import { FormatTime, FormmatDate } from '@/method/until';
 import FormComment from '../form_comment';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/reduce/store';
@@ -76,66 +75,163 @@ function CommentComp({ comment, feeback, likeComment, disLikeComment, SendCommen
         setIsLikeOrDislike(undefined);
     }, [comment, feeback]);
 
+    function CheckTime(dateEnd: Date, dateStart: Date) {
+        const result = dateEnd.valueOf() - dateStart.valueOf();
+
+        const second = result / 1000;
+        if (second < 1)
+            return {
+                type: {
+                    vn: 'milisecond',
+                    eng: 'milisecond',
+                },
+                value: Math.floor(result),
+            };
+
+        const minute = second / 60;
+        if (minute < 1)
+            return {
+                type: {
+                    vn: 'Giây',
+                    eng: 'second',
+                },
+                value: Math.floor(second),
+            };
+
+        const house = minute / 60;
+        if (house < 1)
+            return {
+                type: {
+                    vn: 'phút',
+                    eng: 'minute',
+                },
+                value: Math.floor(minute),
+            };
+
+        const day = house / 24;
+        if (day < 1)
+            return {
+                type: {
+                    vn: 'giờ',
+                    eng: 'house',
+                },
+                value: Math.floor(house),
+            };
+
+        const week = day / 7;
+        if (week < 1)
+            return {
+                type: {
+                    vn: 'ngày',
+                    eng: 'day',
+                },
+                value: Math.floor(day),
+            };
+
+        const month = week / 4;
+        if (month < 1)
+            return {
+                type: {
+                    vn: 'tuẩn',
+                    eng: 'week',
+                },
+                value: Math.floor(week),
+            };
+
+        const year = month / 12;
+        if (year < 1)
+            return {
+                type: {
+                    vn: 'tháng',
+                    eng: 'month',
+                },
+                value: Math.floor(month),
+            };
+
+        return {
+            type: {
+                vn: 'năm',
+                eng: 'year',
+            },
+            value: Math.floor(year),
+        };
+    }
+
+    function CommentDate(date: Date) {
+        const end = new Date();
+        const start = new Date(date);
+
+        const result = CheckTime(end, start);
+        const resultString = `${result.value} ${result.type.vn}`;
+
+        return resultString;
+    }
+
     return comment ? (
         <div className={cx('container')}>
-            <aside className={cx('wrap_comment')}>
-                <div className={cx('wrap_item-top')}>
-                    <span className={cx('item_top')}>
-                        <span className={cx('commentator')}>{comment.author_name}</span>
-                        <span className={cx('comment_date_time')}>
-                            {' '}
-                            {FormmatDate(comment.create_at)} {FormatTime(comment.create_at)}
+            <div className="flex">
+                <div className={cx('wrap_image')}>
+                    <img src={comment?.avatar} alt="avatar" />
+                </div>
+                <aside className={cx('wrap_comment')}>
+                    <div className={cx('wrap_item-top')}>
+                        <span className={cx('item_top')}>
+                            <span className={cx('commentator')}>{comment.author_name}</span>
+                            <span className={cx('comment_date_time')}>
+                                {' '}
+                                {CommentDate(new Date(comment.create_at))} trước
+                            </span>
                         </span>
-                    </span>
-                </div>
+                    </div>
 
-                <div className={cx('item_middle')}>
-                    <p className={cx('comment_content')}>{comment.note}</p>
-                </div>
+                    <div className={cx('item_middle')}>
+                        <p className={cx('comment_content')}>{comment.note}</p>
+                    </div>
 
-                <div className={cx('item_bottom', 'flex__center')}>
-                    <div className={cx('wrap_share')} style={{ padding: 0 }} onClick={ControllFormCommnent}>
-                        <div className={cx('wrap_icon')}>
-                            <FontAwesomeIcon icon={faComment} />
+                    <div className={cx('item_bottom', 'flex__center')}>
+                        <div className={cx('wrap_share')} style={{ padding: 0 }} onClick={ControllFormCommnent}>
+                            <div className={cx('wrap_icon')}>
+                                <FontAwesomeIcon icon={faComment} />
+                            </div>
+                            <p className={cx('space-l5')}>Phản hồi</p>
                         </div>
-                        <p className={cx('space-l5')}>Phản hồi</p>
+
+                        <div
+                            className="space-l10 space-r10"
+                            // onClick={() =>
+                            //     setIsLikeOrDislike((prev) => {
+                            //         if (prev === 'dislike') return 'like';
+
+                            //         if (prev === 'like') return undefined;
+
+                            //         return 'like';
+                            //     })
+                            // }
+                        >
+                            <LikeComp isLike={islike_or_dislike} count={comment.like_count} likeComment={likeComment} />
+                        </div>
+
+                        <div
+                            className={cx('wrap_share')}
+                            // onClick={() =>
+                            //     setIsLikeOrDislike((prev) => {
+                            //         if (prev === 'like') return 'dislike';
+
+                            //         if (prev === 'dislike') return undefined;
+
+                            //         return 'dislike';
+                            //     })
+                            // }
+                        >
+                            <DisLikeComp
+                                isDisLike={islike_or_dislike}
+                                count={comment.dislike_count}
+                                disLikeComment={disLikeComment}
+                            />
+                        </div>
                     </div>
-
-                    <div
-                        className="space-l10 space-r10"
-                        // onClick={() =>
-                        //     setIsLikeOrDislike((prev) => {
-                        //         if (prev === 'dislike') return 'like';
-
-                        //         if (prev === 'like') return undefined;
-
-                        //         return 'like';
-                        //     })
-                        // }
-                    >
-                        <LikeComp isLike={islike_or_dislike} count={comment.like_count} likeComment={likeComment} />
-                    </div>
-
-                    <div
-                        className={cx('wrap_share')}
-                        // onClick={() =>
-                        //     setIsLikeOrDislike((prev) => {
-                        //         if (prev === 'like') return 'dislike';
-
-                        //         if (prev === 'dislike') return undefined;
-
-                        //         return 'dislike';
-                        //     })
-                        // }
-                    >
-                        <DisLikeComp
-                            isDisLike={islike_or_dislike}
-                            count={comment.dislike_count}
-                            disLikeComment={disLikeComment}
-                        />
-                    </div>
-                </div>
-            </aside>
+                </aside>
+            </div>
             {is_show_form_comment && (
                 <div className={cx('wrap_form-comment')}>
                     <FormComment comment_of_feedback={comment} SendComment={SendComment} SendFeeback={SendFeeback} />
@@ -144,72 +240,77 @@ function CommentComp({ comment, feeback, likeComment, disLikeComment, SendCommen
         </div>
     ) : feeback ? (
         <div className={cx('container')}>
-            <aside className={cx('wrap_comment')}>
-                <div className={cx('wrap_item-top')}>
-                    <span className={cx('item_top')}>
-                        <span className={cx('commentator')}>{feeback.author_name}</span>
-                        <span className={cx('comment_date_time')}>
-                            {' '}
-                            {FormmatDate(feeback.create_at)} {FormatTime(feeback.create_at)}
-                        </span>
-                    </span>
+            <div className="flex">
+                <div className={cx('wrap_image')}>
+                    <img src={feeback?.avatar} alt="avatar" />
                 </div>
-
-                <div className={cx('item_middle')}>
-                    <span className={cx('comment_content')}>
-                        <span className="blue-color font-weight600">
-                            <span className="font-size12">
-                                <FontAwesomeIcon icon={faShare} />
+                <aside className={cx('wrap_comment')}>
+                    <div className={cx('wrap_item-top')}>
+                        <span className={cx('item_top')}>
+                            <span className={cx('commentator')}>{feeback.author_name}</span>
+                            <span className={cx('comment_date_time')}>
+                                {' '}
+                                {CommentDate(new Date(feeback.create_at))} trước
                             </span>
-                            {feeback.receiver_name}
-                        </span>{' '}
-                        {feeback.note}
-                    </span>
-                </div>
+                        </span>
+                    </div>
 
-                <div className={cx('item_bottom', 'flex__center')}>
-                    <div className={cx('wrap_share')} style={{ padding: 0 }} onClick={ControllFormCommnent}>
-                        <div className={cx('wrap_icon')}>
-                            <FontAwesomeIcon icon={faComment} />
+                    <div className={cx('item_middle')}>
+                        <span className={cx('comment_content')}>
+                            <span className="blue-color font-weight600">
+                                <span className="font-size12">
+                                    <FontAwesomeIcon icon={faShare} />
+                                </span>
+                                {feeback.receiver_name}
+                            </span>{' '}
+                            {feeback.note}
+                        </span>
+                    </div>
+
+                    <div className={cx('item_bottom', 'flex__center')}>
+                        <div className={cx('wrap_share')} style={{ padding: 0 }} onClick={ControllFormCommnent}>
+                            <div className={cx('wrap_icon')}>
+                                <FontAwesomeIcon icon={faComment} />
+                            </div>
+                            <p className={cx('space-l5')}>Phản hồi</p>
                         </div>
-                        <p className={cx('space-l5')}>Phản hồi</p>
+
+                        <div
+                            className="space-l10 space-r10"
+                            onClick={() =>
+                                setIsLikeOrDislike((prev) => {
+                                    if (prev === 'dislike') return 'like';
+
+                                    if (prev === 'like') return undefined;
+
+                                    return 'like';
+                                })
+                            }
+                        >
+                            <LikeComp isLike={islike_or_dislike} count={feeback.like_count} likeComment={likeComment} />
+                        </div>
+
+                        <div
+                            className={cx('wrap_share')}
+                            onClick={() =>
+                                setIsLikeOrDislike((prev) => {
+                                    if (prev === 'like') return 'dislike';
+
+                                    if (prev === 'dislike') return undefined;
+
+                                    return 'dislike';
+                                })
+                            }
+                        >
+                            <DisLikeComp
+                                isDisLike={islike_or_dislike}
+                                count={feeback.dislike_count}
+                                disLikeComment={disLikeComment}
+                            />
+                        </div>
                     </div>
-
-                    <div
-                        className="space-l10 space-r10"
-                        onClick={() =>
-                            setIsLikeOrDislike((prev) => {
-                                if (prev === 'dislike') return 'like';
-
-                                if (prev === 'like') return undefined;
-
-                                return 'like';
-                            })
-                        }
-                    >
-                        <LikeComp isLike={islike_or_dislike} count={feeback.like_count} likeComment={likeComment} />
-                    </div>
-
-                    <div
-                        className={cx('wrap_share')}
-                        onClick={() =>
-                            setIsLikeOrDislike((prev) => {
-                                if (prev === 'like') return 'dislike';
-
-                                if (prev === 'dislike') return undefined;
-
-                                return 'dislike';
-                            })
-                        }
-                    >
-                        <DisLikeComp
-                            isDisLike={islike_or_dislike}
-                            count={feeback.dislike_count}
-                            disLikeComment={disLikeComment}
-                        />
-                    </div>
-                </div>
-            </aside>
+                </aside>
+            </div>
             {is_show_form_comment && (
                 <div className={cx('wrap_form-comment')}>
                     <FormComment comment_of_feedback={feeback} SendComment={SendComment} SendFeeback={SendFeeback} />

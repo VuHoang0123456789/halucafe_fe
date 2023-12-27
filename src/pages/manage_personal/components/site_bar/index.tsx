@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import { useContext, useEffect, useState } from 'react';
 import { ConTextIndex } from '../..';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/reduce/store';
 import { GetCookie, decodeString } from '@/method/until';
@@ -12,19 +12,21 @@ const cx = classNames.bind(styles);
 type ArrType = {
     title: string;
     link: string;
+    type: string;
 };
 
 function Sitebar() {
-    const { index, setIndex } = useContext(ConTextIndex);
+    const { index } = useContext(ConTextIndex);
     const user = useSelector((state: RootState) => state.user);
     const [arr, setArr] = useState<ArrType[] | undefined>();
+    const location = useLocation();
 
     useEffect(() => {
         let arr = [
-            { title: 'Thông tin tài khoản', link: '/account' },
-            { title: 'Đơn hàng của bạn', link: '/account/orders' },
-            { title: 'Đổi mật khẩu', link: '/account/change-password' },
-            { title: 'Sổ địa chỉ', link: '/account/address' },
+            { title: 'Thông tin tài khoản', link: '/account', type: 'infomation' },
+            { title: 'Đơn hàng của bạn', link: '/account/orders', type: 'orders' },
+            { title: 'Đổi mật khẩu', link: '/account/change-password', type: 'change-password' },
+            { title: 'Sổ địa chỉ', link: '/account/address', type: 'address' },
         ];
 
         if (
@@ -32,9 +34,9 @@ function Sitebar() {
             decodeString(GetCookie('_typeLogin') || '') === 'google'
         ) {
             arr = [
-                { title: 'Thông tin tài khoản', link: '/account' },
-                { title: 'Đơn hàng của bạn', link: '/account/orders' },
-                { title: 'Sổ địa chỉ', link: '/account/address' },
+                { title: 'Thông tin tài khoản', link: '/account', type: 'infomation' },
+                { title: 'Đơn hàng của bạn', link: '/account/orders', type: 'orders' },
+                { title: 'Sổ địa chỉ', link: '/account/address', type: 'address' },
             ];
         }
 
@@ -51,10 +53,11 @@ function Sitebar() {
                 {arr?.map((item, indexSitebar) => (
                     <Link to={item.link} key={indexSitebar}>
                         <li
-                            className={cx(index.sitebar_idex === indexSitebar ? 'active' : '')}
-                            onClick={() => {
-                                setIndex({ sitebar_idex: indexSitebar, order_index: -1 });
-                            }}
+                            className={cx(
+                                index.sitebar_idex === indexSitebar || location.pathname.includes(item.type)
+                                    ? 'active'
+                                    : '',
+                            )}
                         >
                             {item.title}
                         </li>

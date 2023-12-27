@@ -2,14 +2,22 @@ import classNames from 'classnames/bind';
 import styles from '../styles.module.scss';
 import { useEffect, useState } from 'react';
 import { CallApi, GetCookie } from '@/method/until';
+import MessageComp from '@/components/message';
 
 const cx = classNames.bind(styles);
+
+interface messages {
+    id?: number;
+    content: string;
+    type: string;
+}
 
 function PassWord() {
     const [passWord, setPassWord] = useState('');
     const [newPassword, setNewPassWord] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const domain_url = process.env.REACT_APP_DOMAIN_URL_BE;
+    const [message, setMessage] = useState<messages>({} as messages);
 
     useEffect(() => {
         document.title = 'Thay đổi mật khẩu halucafe';
@@ -24,7 +32,7 @@ function PassWord() {
     async function ResetPassWord() {
         try {
             if (await CheckPassWord()) {
-                alert('Vui lòng kiểm tra lại mật khẩu!');
+                setMessage({ type: 'cancel', content: 'Mật khẩu mới và xác nhận mật khẩu không đúng!' });
                 return;
             }
 
@@ -41,7 +49,15 @@ function PassWord() {
 
             const data = await CallApi(url, method, headers, body);
 
-            alert(data.msg);
+            if (data) {
+                setMessage({ type: 'success', content: data.msg });
+                return;
+            }
+
+            setMessage({
+                type: 'cancel',
+                content: 'Thay đổi mật khẩu không thành công, vui lòng kiểm tra lại mật khẩu!',
+            });
         } catch (error) {
             console.log(error);
         }
@@ -54,6 +70,7 @@ function PassWord() {
 
     return (
         <section className={cx('wrap__content')}>
+            {message.type ? <MessageComp message={message} /> : <></>}
             <h1 className={cx('title')}>Đổi mật khẩu</h1>
             <div className={cx('wrap_password')}>
                 <p className="space-b15 font-size14">

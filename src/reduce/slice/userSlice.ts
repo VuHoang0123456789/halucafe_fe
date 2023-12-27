@@ -5,6 +5,7 @@ const initialState: userStateSlice = {
     email: '',
     show_name: '',
     address_full: '',
+    avatar: '',
     customer_id: -1,
 };
 

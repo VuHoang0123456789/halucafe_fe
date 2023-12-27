@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { createNewCartItem } from '@/reduce/slice/newCartItemSlice';
 import { toppingType, productInfoType } from '@/type';
 import LoadedComp from '@/components/loaded';
+import ReactImageMagnify from 'react-image-magnify';
 
 const cx = classNames.bind(styles);
 
@@ -111,7 +112,21 @@ function Product_Info() {
                         <div className="flex">
                             <div className={cx('product__box')}>
                                 <div className={cx('product__thumbnail')}>
-                                    <img src={productInfo.product?.url_images_large[index]} alt={`ảnh ${index}`} />
+                                    <ReactImageMagnify
+                                        {...{
+                                            smallImage: {
+                                                alt: `ảnh ${index}`,
+                                                isFluidWidth: true,
+                                                src: `${productInfo.product?.url_images_large[index]}`,
+                                            },
+                                            largeImage: {
+                                                src: `${productInfo.product?.url_images_large[index]}`,
+                                                width: 892,
+                                                height: 892,
+                                            },
+                                        }}
+                                    />
+                                    {/* <img src={productInfo.product?.url_images_large[index]} alt={`ảnh ${index}`} /> */}
                                 </div>
 
                                 <div className={cx('list__image')}>

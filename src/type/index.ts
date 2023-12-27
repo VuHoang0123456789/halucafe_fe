@@ -98,6 +98,7 @@ export type userStateSlice = {
     show_name: string;
     address_full: string;
     customer_id: number;
+    avatar: string;
 };
 
 export type ProvinceType = {
@@ -167,6 +168,7 @@ export interface feedbackType {
     receiver_id: number;
     receiver_name?: string;
     is_like?: number;
+    avatar: string;
     is_dislike?: number;
 }
 
@@ -182,5 +184,6 @@ export interface commenType {
     like_count?: number;
     is_like?: number;
     is_dislike?: number;
+    avatar: string;
     feebacks?: feedbackType[];
 }
